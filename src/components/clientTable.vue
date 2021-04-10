@@ -1,5 +1,7 @@
 <template>
   <div class="container">
+
+    <!-- Client Data -->
     <div class="table-wrapper">
       <div class="table-title">
         <div class="row">
@@ -44,7 +46,7 @@
             </th>
           </tr>
         </thead>
-        <tbody>
+        <tbody v-if="clients">
           <tr v-for="client in clients" :key="client._id">
             <td>{{ client.name }}</td>
             <td>{{ client.email }}</td>
@@ -66,6 +68,7 @@
             </td>
           </tr>
         </tbody>
+        <em v-else class="text-info">There is no data yet click add new client</em>
       </table>
     </div>
 
@@ -185,6 +188,8 @@
         </div>
       </div>
     </div>
+
+
     <!-- edit Modal -->
     <div id="editeClientModal" class="modal fade">
       <div class="modal-dialog">
