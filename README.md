@@ -11,9 +11,10 @@ PORT
 DATABASE_LOCAL 
 ```
 
-### Compiles and hot-reloads for development
+### To start the app after setup, Run the following commands
 ```
-npm run serve
+npm run serve - frontend application
+npm start     - API or Backend application
 ```
 
 ### Compiles and minifies for production
