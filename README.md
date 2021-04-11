@@ -13,8 +13,14 @@ DATABASE_LOCAL
 
 ### To start the app after setup, Run the following commands
 ```
-npm run serve - frontend application
 npm start     - API or Backend application
+npm run serve - frontend application
+```
+
+### What to Next
+```
+1. Open your web browser and type http://localhost:8081/ to see the application
+2. Open your web browser and type http://localhost:8080/api-docs/ to see the APIs documentation with swagger for all the endpoints
 ```
 
 ### Compiles and minifies for production
