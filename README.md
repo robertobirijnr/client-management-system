@@ -1,4 +1,4 @@
-# practical-test-for-fullstack-javascript-developer
+# Client Management System
 
 ## Project setup
 ```
