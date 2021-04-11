@@ -4,13 +4,14 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const path = require('path')
 const dotenv = require('dotenv');
-
-
+const swaggerUi = require('swagger-ui-express')
+const YAML = require('yamljs')
+const swaggerDocument = YAML.load(path.join(__dirname, '../swagger.yaml'))
 
 dotenv.config({ path: './config.env' });
 
 
-mongoose.connect(process.env.DB_URI,{
+mongoose.connect(process.env.DATABASE_LOCAL,{
     createIndexes:false,
     useNewUrlParser: true ,
     useUnifiedTopology: true ,
@@ -23,6 +24,7 @@ console.log('connection successful')
 const app = express();
 
 
+
 app.use(cors())
 
 app.use(bodyParser.json());
@@ -30,6 +32,7 @@ app.use(bodyParser.json());
 
 
 
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use('/api/v1',require('./routes'))
 
 

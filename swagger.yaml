@@ -1,0 +1,228 @@
+swagger: "2.0"
+
+############################################################################
+#                          Client  API Information                         #
+############################################################################
+info:
+  version: "v1"
+  title: REST API for 'The Client Management App'
+  description: |
+    The is a demo Swagger Spec for the sample REST API used by The Client Management App.
+
+host: localhost:8080
+basePath: /api/v1
+
+paths:
+  /create-client:
+    post:
+      tags: [Clients]
+      summary: "Add a new client to the database"
+      consumes:
+        - "application/json"
+        - "application/xml"
+      produces:
+        - "application/xml"
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "index"
+          description: "Client object that needs to be added to the store"
+          schema:
+            $ref: "#/definitions/clients"
+      responses:
+        "405":
+          description: "Invalid input"
+
+  /clients:
+    get:
+      summary: "Get all clients"
+      tags: [Clients]
+      produces:
+        - "application/json"
+      responses:
+        200:
+          description: " success"
+          schema:
+            $ref: "#/definitions/clients"
+
+  /client/{id}:
+    get:
+      summary: Gets a client by id
+      tags: [Clients]
+      parameters:
+        - in: "path"
+          name: id
+          type: string
+          required: true
+          description: The client id
+      responses:
+        "200":
+          description: The client.
+        "404":
+          description: Client not found.
+
+    put:
+      summary: Update a client
+      tags: [Clients]
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: "id"
+          type: string
+          description: The id of the client you want to update.
+          required: true
+        - in: body
+          name: clients
+          description: The client you want update with.
+          required: true
+          schema:
+            $ref: "#/definitions/clients"
+      responses:
+        200:
+          description: The client has been successfully updated.
+
+    delete:
+      summary: Deletes a client by id
+      tags: [Clients]
+      parameters:
+        - in: path
+          required: true
+          name: id
+          type: string
+          description: The client id
+      responses:
+        "204":
+          description: Delete was successful.
+        "404":
+          description: Client not found.
+
+  ############################################################################
+  #                          Provider  API Information                       #
+  ############################################################################
+
+  /create-provider:
+    post:
+      tags: [Providers]
+      summary: "Add a new Provider to the database"
+      consumes:
+        - "application/json"
+        - "application/xml"
+      produces:
+        - "application/xml"
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "index"
+          description: "Client object that needs to be added to the store"
+          schema:
+            $ref: "#/definitions/providers"
+      responses:
+        "405":
+          description: "Invalid input"
+
+  /providers:
+    get:
+      summary: "Get all providers"
+      tags: [Providers]
+      produces:
+        - "application/json"
+      responses:
+        200:
+          description: " success"
+          schema:
+            $ref: "#/definitions/providers"
+
+  /provider/{id}:
+    get:
+      summary: Gets a provider by id
+      tags: [Providers]
+      parameters:
+        - in: "path"
+          name: id
+          type: string
+          required: true
+          description: The provider id
+      responses:
+        "200":
+          description: The provider.
+        "404":
+          description: Provider not found.
+
+    put:
+      summary: Update a provider
+      tags: [Providers]
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: "id"
+          type: string
+          description: The id of the provider you want to update.
+          required: true
+        - in: body
+          name: clients
+          description: The provider you want update with.
+          required: true
+          schema:
+            $ref: "#/definitions/providers"
+      responses:
+        200:
+          description: The provider has been successfully updated.
+
+    delete:
+      summary: Deletes a client by id
+      tags: [Providers]
+      parameters:
+        - in: path
+          required: true
+          name: id
+          type: string
+          description: The provider id
+      responses:
+        "204":
+          description: Delete was successful.
+        "404":
+          description: Provider not found.
+
+############################################################################
+#                               Definitions                                #
+############################################################################
+definitions:
+  clients:
+    type: object
+    required:
+      - "name"
+      - "email"
+      - "phone"
+    properties:
+      name:
+        type: string
+      email:
+        type: string
+      phone:
+        type: string
+      providers:
+        type: array
+        items:
+          type: object
+          properties:
+            id:
+              type: string
+            name:
+              type: string
+
+  providers:
+    type: object
+    required:
+      - "id"
+      - "name"
+    properties:
+      id:
+        type: string
+      name:
+        type: string
