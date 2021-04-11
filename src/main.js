@@ -4,9 +4,10 @@ import router from './router'
 import store from './store'
 import 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
-
+import Toasted from 'vue-toasted'
 
 Vue.config.productionTip = false
+Vue.use(Toasted)
 
 
 new Vue({

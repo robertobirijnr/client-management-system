@@ -1,6 +1,5 @@
 <template>
   <div class="container">
-
     <!-- Client Data -->
     <div class="table-wrapper">
       <div class="table-title">
@@ -12,22 +11,6 @@
             <a href="#clientModal" data-toggle="modal" class="btn btn-primary"
               >add new client</a
             >
-          </div>
-          <div class="col-sm-12 mt-4 d-flex justify-content-end align-item-center">
-            <form class="form-inline my-2 my-lg-0">
-              <input
-                class="form-control mr-sm-2"
-                type="search"
-                placeholder="Search"
-                aria-label="Search"
-              />
-              <button
-                class="btn btn-outline-success my-2 my-sm-0"
-                type="submit"
-              >
-                Search
-              </button>
-            </form>
           </div>
         </div>
       </div>
@@ -68,7 +51,9 @@
             </td>
           </tr>
         </tbody>
-        <em v-else class="text-info">There is no data yet click add new client</em>
+        <em v-else class="text-info"
+          >There is no data yet click add new client</em
+        >
       </table>
     </div>
 
@@ -78,7 +63,7 @@
         <div class="modal-content">
           <form>
             <div class="modal-header">
-              <h4 class="modal-title">Add Client</h4>
+              <h4 class="modal-title text-info">Add new client</h4>
               <button
                 type="button"
                 data-dismiss="modal"
@@ -91,18 +76,32 @@
             <div class="modal-body">
               <div class="form-group">
                 <label for="name">Name</label>
-                <input type="text" v-model="form.name" class="form-control" />
+                <input
+                  type="text"
+                  required="required"
+                  v-model="form.name"
+                  class="form-control"
+                  placeholder="Enter name"
+                />
               </div>
               <div class="form-group">
                 <label for="email">Email</label>
-                <input type="email" v-model="form.email" class="form-control" />
+                <input
+                  type="email"
+                  required="required"
+                  v-model="form.email"
+                  class="form-control"
+                  placeholder="Enter email"
+                />
               </div>
               <div class="form-group">
                 <label for="phone">Phone Number</label>
                 <input
                   type="number"
+                  required="required"
                   v-model="form.phone"
                   class="form-control"
+                  placeholder="Enter number"
                 />
               </div>
               <div>
@@ -123,15 +122,16 @@
             <div class="modal-footer">
               <input
                 type="button"
-                class="btn btn-warning"
+                class="btn btn-danger btn-sm"
                 data-dismiss="modal"
                 value="cancel"
               />
               <input
                 type="button"
                 @click="addNewClient"
-                class="btn btn-success"
-                value="add"
+                class="btn btn-success btn-sm"
+                value="add client"
+                :disabled="validateModal"
               />
             </div>
           </form>
@@ -188,7 +188,6 @@
         </div>
       </div>
     </div>
-
 
     <!-- edit Modal -->
     <div id="editeClientModal" class="modal fade">
@@ -303,13 +302,10 @@ export default {
       console.log(res.data.response);
       this.providers = res.data.response;
     });
-    
 
     this.getClients();
     // this.deleteModal()
     this.getProviders();
-
-    
   },
 
   computed: {
@@ -317,6 +313,10 @@ export default {
       return _.map(this.providers, function (provider) {
         return provider.name;
       });
+    },
+
+    validateModal() {
+      return !(this.form.name && this.form.email && this.form.phone);
     },
   },
 
@@ -362,6 +362,7 @@ export default {
         (this.form.providers = []);
       $("#clientModal").modal("hide");
       this.getClients();
+      this.$toasted.success("client added successfully", { duration: 5000 });
     },
 
     //delete clients
@@ -401,6 +402,7 @@ export default {
       axios.put(`api/v1/client/${id}`, this.current_client.data);
       $("#editeClientModal").modal("hide");
       this.getClients();
+      this.$toasted.success("client updated", { duration: 5000 });
     },
   },
 };
@@ -428,5 +430,17 @@ export default {
 .table-title h2 {
   margin: 5px 0 0;
   font-size: 24px;
+}
+
+input[type="button"]:disabled {
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
+  cursor: not-allowed;
+}
+
+.form-group > label:after {
+  content: "*";
+  color: red;
 }
 </style>
