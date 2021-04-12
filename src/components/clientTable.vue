@@ -297,7 +297,7 @@ export default {
     };
   },
 
-  created() {
+  mounted() {
     axios.get("api/v1/providers").then((res) => {
       console.log(res.data.response);
       this.providers = res.data.response;
@@ -370,6 +370,7 @@ export default {
       axios.delete(`api/v1/client/${id}`);
       $("#deleteModal").modal("hide");
       this.getClients();
+      this.$toasted.danger("client deleted successfully", { duration: 5000 });
     },
 
     //open Delete modal or pop up
