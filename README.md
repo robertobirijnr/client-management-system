@@ -1,4 +1,4 @@
-# Clients Management System (MERN Stack)
+# Clients Management System (MERV Stack)
 
 ## Project setup
 ```
