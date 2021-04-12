@@ -11,7 +11,7 @@ const swaggerDocument = YAML.load(path.join(__dirname, '../swagger.yaml'))
 dotenv.config({ path: './config.env' });
 
 
-mongoose.connect(process.env.DATABASE_LOCAL,{
+mongoose.connect(process.env.DB_URI,{
     createIndexes:false,
     useNewUrlParser: true ,
     useUnifiedTopology: true ,
